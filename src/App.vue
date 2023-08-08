@@ -1,26 +1,52 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/meucadastro">Meu cadastro</router-link> |
+    <router-link to="/usuarios" v-if="isAdmin">Usuários</router-link> |
+    <router-link to="/pessoas">Pessoas</router-link> |
+    <router-link to="/contatos">Contatos</router-link> |
+    <a @click="logout">Logout</a>
+  </nav>
+  <router-view/>
 </template>
 
+<style>
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+  }
+
+  nav {
+    padding: 30px;
+  }
+
+  nav a {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  nav a.router-link-exact-active {
+    color: #42b983;
+  }
+</style>
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import authService from './services/auth'; // Atualize o caminho para o serviço de autenticação
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  computed: {
+    isAdmin() {
+      // Aqui você precisa substituir por sua lógica para verificar se o usuário é admin
+      return true;
+    }
+  },
+  methods: {
+    logout() {
+      authService.logout();
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
